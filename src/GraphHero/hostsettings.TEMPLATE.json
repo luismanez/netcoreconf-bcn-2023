@@ -1,0 +1,17 @@
+{
+    "Logging": {
+      "LogLevel": {
+        "Default": "Debug",
+        "System": "Information",
+        "Microsoft": "Information"
+      }
+    },
+    "AzureAd": {
+      "Authority": "https://login.microsoftonline.com/{TENANT_ID}",
+      "Instance": "https://login.microsoftonline.com/",
+      "Domain": "TENANT.onmicrosoft.com",
+      "TenantId": "XXXXXXXXXXXX",
+      "ClientId": "XXXXXXX",
+      "ClientSecret": "XXXXXXXXXX"
+    }
+  }
