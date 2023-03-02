@@ -1,5 +1,6 @@
 ﻿using GraphHero.HostedServices;
 using GraphHero.Options;
+using GraphHero.Providers;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -26,7 +27,11 @@ var host = Host.CreateDefaultBuilder(args)
             .Bind(configuration.GetSection("AzureAd"))
             .ValidateOnStart();
 
-        services.AddHostedService<AuthenticationHostedService>();
+        services.AddSingleton<IGraphServiceClientProvider, GraphServiceClientProvider>();
+
+        //services.AddHostedService<AuthenticationHostedService>();
+        //services.AddHostedService<BetaEndpointHostedService>();
+        services.AddHostedService<CustomHeadersHostedService>();
     })
     .Build();
 
