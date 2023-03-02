@@ -1,4 +1,5 @@
-﻿using GraphHero.HostedServices;
+﻿using GraphHero.DelegatingHandlers;
+using GraphHero.HostedServices;
 using GraphHero.Options;
 using GraphHero.Providers;
 using Microsoft.Extensions.Configuration;
@@ -28,11 +29,14 @@ var host = Host.CreateDefaultBuilder(args)
             .ValidateOnStart();
 
         services.AddSingleton<IGraphServiceClientProvider, GraphServiceClientProvider>();
+        services.AddSingleton<AuditDelegatingHandler, AuditDelegatingHandler>();
+        services.AddSingleton<ClientCredentialsKiotaAccessTokenProvider, ClientCredentialsKiotaAccessTokenProvider>();
 
         //services.AddHostedService<AuthenticationHostedService>();
         //services.AddHostedService<BetaEndpointHostedService>();
         //services.AddHostedService<CustomHeadersHostedService>();
-        services.AddHostedService<ErrorHandlingHostedService>();
+        //services.AddHostedService<ErrorHandlingHostedService>();
+        services.AddHostedService<CustomDelegatingHandlerHostedService>();
     })
     .Build();
 

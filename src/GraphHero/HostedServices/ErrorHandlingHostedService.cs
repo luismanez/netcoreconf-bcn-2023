@@ -46,7 +46,7 @@ public class ErrorHandlingHostedService : IHostedService
 
     public Task StopAsync(CancellationToken cancellationToken)
     {
-        _logger.LogWarning("AuthenticationHostedService Stopped");
+        _logger.LogWarning("ErrorHandlingHostedService Stopped");
         return Task.CompletedTask;
     }
 }
