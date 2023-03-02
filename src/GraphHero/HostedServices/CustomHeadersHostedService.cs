@@ -34,7 +34,7 @@ public class CustomHeadersHostedService : IHostedService
         var userGroupsMatchingPassedOnes = await graphServiceClient
             .Users[userId]
             .TransitiveMemberOf
-            .GraphGroup // SDK v5 supports OData Cast! before this, you got a DirectoryObject object
+            .GraphGroup // !!!!!!!!! SDK v5 supports OData Cast! before this, you got a DirectoryObject object
             .GetAsync(requestConfiguration => {
                 requestConfiguration.Headers.Add("ConsistencyLevel", "eventual");
                 requestConfiguration.QueryParameters.Filter = $"id in ('{groupId}','{anotherGroupId}','{unexistentGroupId}')";

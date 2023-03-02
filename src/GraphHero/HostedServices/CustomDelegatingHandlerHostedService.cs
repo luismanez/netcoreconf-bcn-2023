@@ -1,35 +1,25 @@
-using Azure.Identity;
 using GraphHero.DelegatingHandlers;
-using GraphHero.Options;
 using GraphHero.Providers;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Microsoft.Graph;
-using Microsoft.Kiota.Abstractions;
 using Microsoft.Kiota.Abstractions.Authentication;
 
 namespace GraphHero.HostedServices;
 
 public class CustomDelegatingHandlerHostedService : IHostedService
 {
-    private readonly IGraphServiceClientProvider _graphServiceClientProvider;
     private readonly ILogger _logger;
     private readonly AuditDelegatingHandler _handler;
-    private readonly AzureAdOptions _azureAdOptions;
     private readonly ClientCredentialsKiotaAccessTokenProvider _authProvider;
 
     public CustomDelegatingHandlerHostedService(
-        ILogger<BetaEndpointHostedService> logger,
-        IGraphServiceClientProvider graphServiceClientProvider,
+        ILogger<CustomDelegatingHandlerHostedService> logger,
         AuditDelegatingHandler handler,
-        IOptions<AzureAdOptions> azureAdOptions,
         ClientCredentialsKiotaAccessTokenProvider authProvider)
     {
         _logger = logger;
-        _graphServiceClientProvider = graphServiceClientProvider;
         _handler = handler;
-        _azureAdOptions = azureAdOptions.Value;
         _authProvider = authProvider;
     }
 
@@ -53,6 +43,7 @@ public class CustomDelegatingHandlerHostedService : IHostedService
             requestConfiguration.QueryParameters.Filter = "startsWith('ca', displayName)";
             requestConfiguration.QueryParameters.Select = new string[] { "id", "displayName"};
             requestConfiguration.QueryParameters.Count = true;
+            requestConfiguration.Headers.Add("ConsistencyLevel", "eventual");
         }, cancellationToken);
 
         foreach (var user in usersWithNameStartingByCa!.Value!)
@@ -65,28 +56,5 @@ public class CustomDelegatingHandlerHostedService : IHostedService
     {
         _logger.LogWarning("CustomDelegatingHandlerHostedService Stopped");
         return Task.CompletedTask;
-    }
-}
-
-public class ClientCredentialsKiotaAccessTokenProvider : IAccessTokenProvider
-{
-    private readonly AzureAdOptions _azureAdOptions;
-    public ClientCredentialsKiotaAccessTokenProvider(IOptions<AzureAdOptions> options)
-    {
-        _azureAdOptions = options.Value;
-    }
-    public AllowedHostsValidator AllowedHostsValidator => throw new NotImplementedException();
-
-    public async Task<string> GetAuthorizationTokenAsync(
-        Uri uri,
-        Dictionary<string, object>? additionalAuthenticationContext = null,
-        CancellationToken cancellationToken = default)
-    {
-        var scopes = new[] { "https://graph.microsoft.com/.default" };
-        var clientSecretCredential = new ClientSecretCredential(
-            _azureAdOptions.TenantId, _azureAdOptions.ClientId, _azureAdOptions.ClientSecret);
-
-        var accessToken = await clientSecretCredential.GetTokenAsync(new Azure.Core.TokenRequestContext(scopes), cancellationToken);
-        return accessToken.Token;
     }
 }

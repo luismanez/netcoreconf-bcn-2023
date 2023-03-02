@@ -36,7 +36,8 @@ var host = Host.CreateDefaultBuilder(args)
         //services.AddHostedService<BetaEndpointHostedService>();
         //services.AddHostedService<CustomHeadersHostedService>();
         //services.AddHostedService<ErrorHandlingHostedService>();
-        services.AddHostedService<CustomDelegatingHandlerHostedService>();
+        //services.AddHostedService<CustomDelegatingHandlerHostedService>();
+        services.AddHostedService<BatchRequestHostedService>();
     })
     .Build();
 

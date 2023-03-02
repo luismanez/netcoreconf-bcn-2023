@@ -17,7 +17,13 @@ public class AuditDelegatingHandler : DelegatingHandler
         HttpRequestMessage request,
         CancellationToken cancellationToken)
     {
-        _logger.LogInformation($"Requested URL: {request.RequestUri.AbsolutePath}");
+        _logger.LogInformation($"**** AUDIT_HANDLER**** Requested URL: {request.RequestUri!.AbsoluteUri}");
+        foreach (var header in request.Headers)
+        {
+            string headerName = header.Key;
+            string headerContent = string.Join(",", header.Value.ToArray());
+            _logger.LogInformation($"{headerName}={headerContent}");
+        }
 
         return base.SendAsync(request, cancellationToken);
     }
