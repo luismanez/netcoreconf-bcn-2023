@@ -5,6 +5,8 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphHero", "GraphHero\GraphHero.csproj", "{58D3ECCD-C573-4410-B7D4-C2B1BA3A9157}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphHero.Tests", "GraphHero.Tests\GraphHero.Tests.csproj", "{D0268A15-758D-47DE-A83B-F35E5221A0F7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{58D3ECCD-C573-4410-B7D4-C2B1BA3A9157}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{58D3ECCD-C573-4410-B7D4-C2B1BA3A9157}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{58D3ECCD-C573-4410-B7D4-C2B1BA3A9157}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0268A15-758D-47DE-A83B-F35E5221A0F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0268A15-758D-47DE-A83B-F35E5221A0F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0268A15-758D-47DE-A83B-F35E5221A0F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0268A15-758D-47DE-A83B-F35E5221A0F7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

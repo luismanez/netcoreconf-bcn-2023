@@ -11,6 +11,8 @@ public sealed class AzureAdOptions
     public string TenantId { get; set; } = "";
     public string ClientId { get; set; } = "";
     public string ClientSecret { get; set; } = "";
+    public string UserName { get; set; } = "";
+    public string UserPassword { get; set; } = "";
 }
 
 public sealed class AzureAdOptionsValidation : IValidateOptions<AzureAdOptions>
