@@ -21,13 +21,15 @@ public class BetaEndpointHostedService : IHostedService
     {
         var userId = "2e7aa741-f341-406a-9d55-e39f15c4c645";
 
-        var betaClient = _graphServiceClientProvider.GetGraphBetaServiceClientWithClientCredentialsAuth();
+        var betaClient = _graphServiceClientProvider
+            .GetGraphBetaServiceClientWithClientCredentialsAuth();
 
-        var userTop3Awards = await betaClient.Users[userId].Profile.Awards.GetAsync(requestConfiguration =>
-        {
-            requestConfiguration.QueryParameters.Select = new[] { "id", "displayName", "webUrl" };
-            requestConfiguration.QueryParameters.Top = 3;
-        }, cancellationToken);
+        var userTop3Awards = await betaClient.Users[userId]
+            .Profile.Awards.GetAsync(requestConfiguration =>
+            {
+                requestConfiguration.QueryParameters.Select = new[] { "id", "displayName", "webUrl" };
+                requestConfiguration.QueryParameters.Top = 3;
+            }, cancellationToken);
 
         foreach (var award in userTop3Awards!.Value!)
         {

@@ -350,3 +350,4 @@ MigrationBackup/
 .ionide/
 __notes.md
 src/GraphHero/hostsettings.json
+src/GraphHero.Tests/hostsettings.json

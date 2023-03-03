@@ -1,12 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Azure.Identity;
 using GraphHero.Options;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.Graph;
+using GraphBeta = Microsoft.Graph.Beta;
 
 namespace GraphHero.Providers;
 
@@ -82,7 +79,7 @@ public class GraphServiceClientProvider : IGraphServiceClientProvider
         return new GraphServiceClient(interactiveCredential, scopes);
     }
 
-    public Microsoft.Graph.Beta.GraphServiceClient GetGraphBetaServiceClientWithClientCredentialsAuth()
+    public GraphBeta.GraphServiceClient GetGraphBetaServiceClientWithClientCredentialsAuth()
     {
         // The client credentials flow requires that you request the
         // /.default scope, and preconfigure your permissions on the
@@ -94,6 +91,6 @@ public class GraphServiceClientProvider : IGraphServiceClientProvider
         var clientSecretCredential = new ClientSecretCredential(
             _azureAdOptions.TenantId, _azureAdOptions.ClientId, _azureAdOptions.ClientSecret);
 
-        return new Microsoft.Graph.Beta.GraphServiceClient(clientSecretCredential, scopes);
+        return new GraphBeta.GraphServiceClient(clientSecretCredential, scopes);
     }
 }

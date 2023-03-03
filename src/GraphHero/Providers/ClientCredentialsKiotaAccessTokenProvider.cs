@@ -12,7 +12,8 @@ public class ClientCredentialsKiotaAccessTokenProvider : IAccessTokenProvider
     {
         _azureAdOptions = options.Value;
     }
-    public AllowedHostsValidator AllowedHostsValidator => throw new NotImplementedException();
+    public AllowedHostsValidator AllowedHostsValidator => 
+        throw new NotImplementedException();
 
     public async Task<string> GetAuthorizationTokenAsync(
         Uri uri,
@@ -21,9 +22,12 @@ public class ClientCredentialsKiotaAccessTokenProvider : IAccessTokenProvider
     {
         var scopes = new[] { "https://graph.microsoft.com/.default" };
         var clientSecretCredential = new ClientSecretCredential(
-            _azureAdOptions.TenantId, _azureAdOptions.ClientId, _azureAdOptions.ClientSecret);
+            _azureAdOptions.TenantId,
+            _azureAdOptions.ClientId,
+            _azureAdOptions.ClientSecret);
 
-        var accessToken = await clientSecretCredential.GetTokenAsync(new Azure.Core.TokenRequestContext(scopes), cancellationToken);
+        var accessToken = await clientSecretCredential.GetTokenAsync(
+            new Azure.Core.TokenRequestContext(scopes), cancellationToken);
         return accessToken.Token;
     }
 }

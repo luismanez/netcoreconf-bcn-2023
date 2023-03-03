@@ -3,7 +3,6 @@ using Microsoft.Graph.Models;
 using Moq;
 using Microsoft.Kiota.Abstractions;
 using Microsoft.Kiota.Abstractions.Serialization;
-using Microsoft.Graph.Applications.Item.Owners.Ref;
 using Microsoft.Kiota.Serialization.Json;
 using Microsoft.Graph.Models.ODataErrors;
 
@@ -17,19 +16,19 @@ public class AddGroupOwnerCommandShould
         var mockRequestAdapter = new Mock<IRequestAdapter>();
         var graphServiceClient = new GraphServiceClient(mockRequestAdapter.Object);
 
-        var groupsCollectionResponse = new GroupCollectionResponse() {
-                Value = new List<Group>
-                {
-                    new Group { DisplayName = "Mocked group"}
-                }
-            };
-
         mockRequestAdapter.Setup(
                         adapter => adapter.SendAsync(
                             It.IsAny<RequestInformation>(), User.CreateFromDiscriminatorValue,
                             It.IsAny<Dictionary<string, ParsableFactory<IParsable>>>(),
                             It.IsAny<CancellationToken>() )
                     ).ReturnsAsync(new User());
+
+        var groupsCollectionResponse = new GroupCollectionResponse() {
+                Value = new List<Group>
+                {
+                    new Group { DisplayName = "Mocked group"}
+                }
+        };
 
         mockRequestAdapter.Setup(
                         adapter => adapter.SendAsync(
@@ -69,7 +68,7 @@ public class AddGroupOwnerCommandShould
 
         mockRequestAdapter.Setup(
                         adapter => adapter.SendAsync(
-                            It.IsAny<RequestInformation>(), 
+                            It.IsAny<RequestInformation>(),
                             GroupCollectionResponse.CreateFromDiscriminatorValue,
                             It.IsAny<Dictionary<string, ParsableFactory<IParsable>>>(),
                             It.IsAny<CancellationToken>()))

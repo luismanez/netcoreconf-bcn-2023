@@ -53,7 +53,8 @@ public class CustomHeadersHostedService : IHostedService
             _logger.LogInformation($"User is in group: {matchedGroup.DisplayName}");
         }
 
-        _logger.LogInformation($"User matches {userGroupsMatchingPassedOnesCount.GetValueOrDefault()} of the passed Groups");
+        _logger.LogInformation(
+            $"User matches {userGroupsMatchingPassedOnesCount.GetValueOrDefault()} of the passed Groups");
     }
 
     public Task StopAsync(CancellationToken cancellationToken)

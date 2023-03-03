@@ -32,12 +32,12 @@ var host = Host.CreateDefaultBuilder(args)
         services.AddSingleton<AuditDelegatingHandler, AuditDelegatingHandler>();
         services.AddSingleton<ClientCredentialsKiotaAccessTokenProvider, ClientCredentialsKiotaAccessTokenProvider>();
 
-        //services.AddHostedService<AuthenticationHostedService>();
-        //services.AddHostedService<BetaEndpointHostedService>();
+        services.AddHostedService<AuthenticationHostedService>();
         //services.AddHostedService<CustomHeadersHostedService>();
         //services.AddHostedService<ErrorHandlingHostedService>();
         //services.AddHostedService<CustomDelegatingHandlerHostedService>();
-        services.AddHostedService<BatchRequestHostedService>();
+        //services.AddHostedService<BatchRequestHostedService>();
+        //services.AddHostedService<BetaEndpointHostedService>();
     })
     .Build();
 

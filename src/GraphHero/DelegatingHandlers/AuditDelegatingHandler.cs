@@ -1,6 +1,3 @@
-using System.Net;
-using Microsoft.Graph.Models;
-using System.Text.Json;
 using Microsoft.Extensions.Logging;
 
 namespace GraphHero.DelegatingHandlers;

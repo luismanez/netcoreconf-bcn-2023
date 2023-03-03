@@ -39,12 +39,15 @@ public class CustomDelegatingHandlerHostedService : IHostedService
             httpClient,
             new BaseBearerTokenAuthenticationProvider(_authProvider));
 
-        var usersWithNameStartingByCa = await graphServiceClient.Users.GetAsync(requestConfiguration => {
-            requestConfiguration.QueryParameters.Filter = "startsWith('ca', displayName)";
-            requestConfiguration.QueryParameters.Select = new string[] { "id", "displayName"};
-            requestConfiguration.QueryParameters.Count = true;
-            requestConfiguration.Headers.Add("ConsistencyLevel", "eventual");
-        }, cancellationToken);
+        var usersWithNameStartingByCa = await graphServiceClient
+            .Users.GetAsync(requestConfiguration => {
+                requestConfiguration.QueryParameters.Filter =
+                    "startsWith('ca', displayName)";
+                requestConfiguration.QueryParameters.Select =
+                    new string[] { "id", "displayName"};
+                requestConfiguration.QueryParameters.Count = true;
+                requestConfiguration.Headers.Add("ConsistencyLevel", "eventual");
+            }, cancellationToken);
 
         foreach (var user in usersWithNameStartingByCa!.Value!)
         {

@@ -10,6 +10,8 @@
       "Domain": "TENANT.onmicrosoft.com",
       "TenantId": "XXXXXXXXXXXX",
       "ClientId": "XXXXXXX",
-      "ClientSecret": "XXXXXXXXXX"
+      "ClientSecret": "XXXXXXXXXX",
+      "UserName": "batman@tenant.onmicrosoft.com",
+      "UserPassword": "Shhhhhhhhh"
     }
   }

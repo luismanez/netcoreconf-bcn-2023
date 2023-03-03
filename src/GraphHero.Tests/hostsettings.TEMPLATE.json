@@ -1,0 +1,16 @@
+{
+    "Logging": {
+      "LogLevel": {
+        "Default": "Debug",
+        "System": "Warning",
+        "Microsoft": "Warning"
+      }
+    },
+    "AzureAd": {
+      "Domain": "tenant.onmicrosoft.com",
+      "TenantId": "f1350198-f81d-46fa-91e7-1535ce306b59",
+      "ClientId": "e0ef0629-9172-4324-8af4-c885a7e22a86",
+      "UserName": "BATMAN@tenant.onmicrosoft.com",
+      "UserPassword": "shhhhhhhhhhhhhh..."
+    }
+  }

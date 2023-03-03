@@ -20,13 +20,17 @@ public class AuthenticationHostedService : IHostedService
     {
         _logger.LogInformation("AuthenticationHostedService started...");
 
-        var graphServiceClient = _graphServiceClientProvider.GetGraphServiceClientWithClientCredentialsAuth();
-        //var graphServiceClient = _graphServiceClientProvider.GetGraphServiceClientWithDeviceCodeAuth();
-        //var graphServiceClient = _graphServiceClientProvider.GetGraphServiceClientWithInteractiveProviderAuth();
+        var graphServiceClient = _graphServiceClientProvider
+            .GetGraphServiceClientWithClientCredentialsAuth();
+        // var graphServiceClient = _graphServiceClientProvider
+        //     .GetGraphServiceClientWithDeviceCodeAuth();
+        // var graphServiceClient = _graphServiceClientProvider
+        //     .GetGraphServiceClientWithInteractiveProviderAuth();
 
-        var top5Users = await graphServiceClient.Users.GetAsync(requestConfiguration => {
-            requestConfiguration.QueryParameters.Select = new[] { "id", "displayName" };
-            requestConfiguration.QueryParameters.Top = 5;
+        var top5Users = await graphServiceClient.Users.GetAsync(
+            requestConfiguration => {
+                requestConfiguration.QueryParameters.Select = new[] { "id", "displayName" };
+                requestConfiguration.QueryParameters.Top = 5;
         }, cancellationToken);
 
         foreach (var user in top5Users!.Value!)

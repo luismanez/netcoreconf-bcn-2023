@@ -21,41 +21,44 @@ public class BatchRequestHostedService : IHostedService
 
     public async Task StartAsync(CancellationToken cancellationToken)
     {
-        var graphServiceClient = _graphServiceClientProvider.GetGraphServiceClientWithClientCredentialsAuth();
+        var graphServiceClient = _graphServiceClientProvider
+            .GetGraphServiceClientWithClientCredentialsAuth();
 
         var top3Users = graphServiceClient
                          .Users
                          .ToGetRequestInformation(
-                            requestConfiguration => requestConfiguration.QueryParameters.Top = 3);
+                            requestConfiguration =>
+                                requestConfiguration.QueryParameters.Top = 3);
 
         var top3Groups = graphServiceClient
                          .Groups
                          .ToGetRequestInformation(
-                            requestConfiguration => requestConfiguration.QueryParameters.Top = 3);
+                            requestConfiguration => 
+                                requestConfiguration.QueryParameters.Top = 3);
 
         // create Batch request container
         var batchRequestContent = new BatchRequestContent(graphServiceClient);
 
         // add batch steps
-        var top3UsersRequestStepId = await batchRequestContent.AddBatchRequestStepAsync(top3Users);
-        var top3GroupsRequestStepId = await batchRequestContent.AddBatchRequestStepAsync(top3Groups);
+        var top3UsersRequestStepId = await batchRequestContent
+            .AddBatchRequestStepAsync(top3Users);
+        var top3GroupsRequestStepId = await batchRequestContent
+            .AddBatchRequestStepAsync(top3Groups);
 
         // batch requests
         var batchResponseContent = await graphServiceClient.Batch.PostAsync(
             batchRequestContent, cancellationToken);
 
-        var usersResponse = await batchResponseContent.GetResponseByIdAsync<UserCollectionResponse>(top3UsersRequestStepId);
-        var userList = usersResponse.Value!;
-
-        foreach (var user in userList)
+        var usersResponse = await batchResponseContent
+            .GetResponseByIdAsync<UserCollectionResponse>(top3UsersRequestStepId);
+        foreach (var user in usersResponse.Value!)
         {
             _logger.LogInformation(user.DisplayName);
         }
 
-        var groupsResponse = await batchResponseContent.GetResponseByIdAsync<TeamCollectionResponse>(top3GroupsRequestStepId);
-        var groupList = groupsResponse.Value!;
-
-        foreach (var group in groupList)
+        var groupsResponse = await batchResponseContent
+            .GetResponseByIdAsync<TeamCollectionResponse>(top3GroupsRequestStepId);
+        foreach (var group in groupsResponse.Value!)
         {
             _logger.LogInformation(group.DisplayName);
         }
