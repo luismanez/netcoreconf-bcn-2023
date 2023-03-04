@@ -33,7 +33,7 @@ public class BatchRequestHostedService : IHostedService
         var top3Groups = graphServiceClient
                          .Groups
                          .ToGetRequestInformation(
-                            requestConfiguration => 
+                            requestConfiguration =>
                                 requestConfiguration.QueryParameters.Top = 3);
 
         // create Batch request container
@@ -63,7 +63,7 @@ public class BatchRequestHostedService : IHostedService
             _logger.LogInformation(group.DisplayName);
         }
     }
-
+    
     public Task StopAsync(CancellationToken cancellationToken)
     {
         _logger.LogWarning("BatchRequestHostedService Stopped");

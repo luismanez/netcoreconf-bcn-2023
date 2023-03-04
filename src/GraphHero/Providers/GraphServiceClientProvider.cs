@@ -18,13 +18,10 @@ public interface IGraphServiceClientProvider
 public class GraphServiceClientProvider : IGraphServiceClientProvider
 {
     private readonly AzureAdOptions _azureAdOptions;
-    private readonly ILogger _logger;
     public GraphServiceClientProvider(
-        IOptions<AzureAdOptions> azureAdOptions,
-        ILogger<GraphServiceClientProvider> logger)
+        IOptions<AzureAdOptions> azureAdOptions)
     {
         _azureAdOptions = azureAdOptions.Value;
-        _logger = logger;
     }
 
     public GraphServiceClient GetGraphServiceClientWithClientCredentialsAuth()

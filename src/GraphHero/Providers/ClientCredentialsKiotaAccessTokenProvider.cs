@@ -12,7 +12,7 @@ public class ClientCredentialsKiotaAccessTokenProvider : IAccessTokenProvider
     {
         _azureAdOptions = options.Value;
     }
-    public AllowedHostsValidator AllowedHostsValidator => 
+    public AllowedHostsValidator AllowedHostsValidator =>
         throw new NotImplementedException();
 
     public async Task<string> GetAuthorizationTokenAsync(

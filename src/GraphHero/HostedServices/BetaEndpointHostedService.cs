@@ -19,7 +19,7 @@ public class BetaEndpointHostedService : IHostedService
 
     public async Task StartAsync(CancellationToken cancellationToken)
     {
-        var userId = "2e7aa741-f341-406a-9d55-e39f15c4c645";
+        const string userId = "2e7aa741-f341-406a-9d55-e39f15c4c645";
 
         var betaClient = _graphServiceClientProvider
             .GetGraphBetaServiceClientWithClientCredentialsAuth();

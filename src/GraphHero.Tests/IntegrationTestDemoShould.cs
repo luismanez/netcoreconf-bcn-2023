@@ -42,4 +42,3 @@ public class IntegrationTestDemoShould
         Assert.Equal("Arya Stark", me!.DisplayName);
     }
 }
-

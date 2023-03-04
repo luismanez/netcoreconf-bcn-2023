@@ -20,12 +20,12 @@ public class AuthenticationHostedService : IHostedService
     {
         _logger.LogInformation("AuthenticationHostedService started...");
 
-        var graphServiceClient = _graphServiceClientProvider
-            .GetGraphServiceClientWithClientCredentialsAuth();
+        // var graphServiceClient = _graphServiceClientProvider
+        //     .GetGraphServiceClientWithClientCredentialsAuth();
         // var graphServiceClient = _graphServiceClientProvider
         //     .GetGraphServiceClientWithDeviceCodeAuth();
-        // var graphServiceClient = _graphServiceClientProvider
-        //     .GetGraphServiceClientWithInteractiveProviderAuth();
+        var graphServiceClient = _graphServiceClientProvider
+            .GetGraphServiceClientWithInteractiveProviderAuth();
 
         var top5Users = await graphServiceClient.Users.GetAsync(
             requestConfiguration => {
